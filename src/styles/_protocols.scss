@@ -1,0 +1,285 @@
+@use 'theme';
+@use 'variables' as v;
+@use 'mixins' as m;
+@use 'sass:color';
+
+#protocol-builder {
+    margin-bottom: v.$pad-v;
+}
+
+#add-protocol-component {
+    display: flex;
+    justify-content: center;
+    margin-bottom: v.$pad-v;
+}
+
+#protocol-formula {
+    margin-bottom: v.$pad-v;
+    text-align: center;
+    @include m.border;
+    display: flex;
+    justify-content: space-between;
+
+    .formula, .label {
+        line-height: 2rem;
+        padding: 0 v.$pad-h;
+    }
+
+    .label {
+        background-color: color.scale(theme.$baseTextColor, $alpha: -90%);
+    }
+
+    button {
+        border-width: 0 0 0 0;
+        border-radius: 0;
+    }
+}
+
+#protocols {
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        list-style: none;
+        position: relative;
+        text-align: center;
+    }
+
+    .condition,
+    .group,
+    .empty {
+        @include m.border;
+        cursor: grab;
+        overflow: hidden;
+
+        .negation {
+            appearance: none;
+
+            &::after {
+                content: "¬";
+                color: color.scale(theme.$baseTextColor, $alpha: -75%);
+                font-weight: bold;
+                display: block;
+                line-height: 1.75rem;
+                padding: 0 v.$pad-h 0.25rem v.$pad-h;
+                background-color: color.scale(theme.$baseTextColor, $alpha: -90%);
+                transition: all .1s;
+            }
+
+            &:hover::after {
+                background-color: color.scale(theme.$baseTextColor, $alpha: -95%);
+            }
+        
+            &:active::after {
+                background-color: color.scale(theme.$baseTextColor, $alpha: -85%);
+            }
+
+            &:checked::after {
+                color: theme.$baseTextColor;
+            }
+        }
+
+        button {
+            border-width: 0;
+            border-radius: 0;
+        }
+    }
+
+    .condition {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .group {
+        display: flex;
+
+        header {
+            display: flex;
+            flex-direction: column;
+            border-right: 2px solid color.scale(theme.$baseTextColor, $alpha: -85%);
+            margin: 0;
+        }
+
+        .content {
+            padding: v.$pad-v v.$pad-h;
+            display: flex;
+            flex-grow: 1;
+
+            ul {
+                display: block;
+                width: 100%;
+            }
+        }
+    }
+
+    .connective,
+    .swap-candidate .connective {
+        cursor: pointer;
+        margin: v.$pad-v / 2 auto;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 2rem;
+        box-sizing: border-box;
+        position: relative;
+        @include m.border;
+        font-weight: bold;
+        background-color: theme.$baseBgColor;
+        color: theme.$baseTextColor;
+
+        &.or {
+            padding: 0 v.$pad-h 0 v.$pad-h + 2rem;
+            &::before {
+                content: "∧";
+                position: absolute;
+                left: 0;
+                width: 2rem;
+                display: block;
+                background-color: color.scale(theme.$baseTextColor, $alpha: -90%);
+                color: color.scale(theme.$baseTextColor, $alpha: -75%);
+            }
+        }
+
+        &.and{
+            padding: 0 v.$pad-h + 2rem 0 v.$pad-h;
+            &::after {
+            content: "∨";
+            position: absolute;
+            right: 0;
+            width: 2rem;
+            display: block;
+            background-color: color.scale(theme.$baseTextColor, $alpha: -90%);
+            color: color.scale(theme.$baseTextColor, $alpha: -75%);
+        }}
+    }
+
+    .empty {
+        background-color: rgba(0,0,0,0.1);
+        border: none;
+        padding: 1.5rem;
+    }
+
+    .group-hoveredover {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .group-hoveredover::before,
+    .group-hoveredover::after {
+        position: absolute;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        padding: calc(.8rem - 1px) 0;
+        z-index: 10;
+    }
+
+    .group-hoveredover::before {
+        content: "Move after group";
+        background-color: rgba(255, 255, 0, 1);
+        left: 0;
+    }
+
+    .group-hoveredover::after {
+        content: "Move inside group";
+        background-color: rgba(0, 0, 255, 1);
+        left: 50%;
+        color: white;
+    }
+
+    #constituent-popover {
+        position: relative;
+        width: 100%;
+
+        .window {
+            display: none;
+        }
+
+        &.visible .window {
+            display: block;
+        }
+
+        .window {
+            position: absolute;
+            top: 0;
+            left: calc(25% - #{v.$pad-h / 2} + 1px);;
+            @include m.box;
+            box-shadow: 0 .2rem 1rem rgba(0,0,0,.2);
+            width: calc(50% - #{v.$pad-h} - 6px);
+
+            .constituents {
+                flex-wrap: wrap;
+                display: flex;
+                width: 100%;
+
+                button {
+                    width: calc(50% - #{v.$pad-h / 2});
+                    box-sizing: border-box;
+
+                    &:nth-child(2n - 1) {
+                        margin-right: v.$pad-h / 2;
+                    }
+
+                    &:nth-child(2n) {
+                        margin-left: v.$pad-h / 2;
+                    }
+
+                    &:not(:nth-child(1)):not(:nth-child(2)) {
+                        margin-top: v.$pad-v;
+                    }
+                }
+            }
+
+            header {
+                // Close button
+                button {
+                    position: absolute;
+                    top: v.$pad-v - .5rem;
+                    right: v.$pad-h - .5rem;
+                    border: none;
+                    background-color: transparent;
+                    padding: 0;
+                    margin: 0;
+                    line-height: 2rem;
+                    width: 2rem;
+                    &:hover {
+                        background-color: color.scale(theme.$baseTextColor, $alpha: -90%);
+                    }                
+                }
+            }
+
+            // The two things below are the triangle at the top of the popover window
+            $triangleSize: .8rem;
+
+            &::before, &::after {
+                content: "";
+                position: absolute;
+                width: 0;
+                height: 0;
+                left: calc(50% - #{$triangleSize});
+                border-left: $triangleSize solid transparent;
+                border-right: $triangleSize solid transparent;
+
+            }
+
+            // Fake border
+            &::before {
+                top: calc(-1 * #{$triangleSize} - 1px);
+                border-bottom: $triangleSize solid color.scale(theme.$baseTextColor, $alpha: -90%);
+            }
+
+            // Background color
+            &::after {
+                top: calc(-1 * #{$triangleSize} + 1.5px);
+                border-bottom: $triangleSize solid theme.$baseBgColor;
+            }
+
+        }
+    }
+}

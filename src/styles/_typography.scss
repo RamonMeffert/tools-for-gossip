@@ -19,11 +19,20 @@ body {
     }
 
     code {
-        background-color: theme.$codeBgColor;
+        background-color: color.scale(theme.$baseTextColor, $alpha: -90%);
         border: 2px solid color.scale(theme.$baseTextColor, $alpha: -90%);
         font-family: $-mono;
         font-size: 85%;
         padding: v.$pad-v / 8 v.$pad-h / 3 v.$pad-v / 10;
+        border-radius: v.$border-radius;
+    }
+
+    pre {
+        background-color: color.scale(theme.$baseTextColor, $alpha: -90%);
+        border: 2px solid color.scale(theme.$baseTextColor, $alpha: -90%);
+        font-family: $-mono;
+        font-size: 85%;
+        padding: v.$pad-v / 2 v.$pad-h;
         border-radius: v.$border-radius;
     }
 }

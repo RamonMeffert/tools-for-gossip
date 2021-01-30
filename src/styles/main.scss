@@ -2,6 +2,7 @@
 @use 'node_modules/@fortawesome/fontawesome-free/css/svg-with-js.min';
 @use 'typography';
 @use 'callsequence';
+@use 'protocols';
 @use 'variables'as v;
 @use 'mixins'as m;
 @use 'input';
@@ -17,8 +18,8 @@ html {
 
 body {
     display: grid;
-    grid-template-columns: 65fr 35fr;
-    grid-template-rows: 5rem auto auto auto;
+    grid-template-columns: 70fr 30fr;
+    grid-template-rows: 4rem auto auto auto;
     width: 100%;
     height: 100%;
     padding: v.$pad-h v.$pad-h;
@@ -123,8 +124,8 @@ a {
 }
 
 hr {
-    border: 2px solid color.scale(theme.$baseTextColor, $alpha: -75%);
-    width: 75%;
+    border: 1px solid color.scale(theme.$baseTextColor, $alpha: -75%);
+    // width: 75%;
     margin-left: 0;
 }
 

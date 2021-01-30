@@ -9,7 +9,8 @@
 }
 
 .call, .dead-end {
-    padding: v.$pad-v / 2 v.$pad-h / 2;
+    padding: 0 v.$pad-h / 2;
+    line-height: 2rem;
     margin-right: v.$pad-h / 2;
     margin-bottom: v.$pad-v / 2;
     border-radius: v.$border-radius;
@@ -22,23 +23,23 @@
     border: 2px solid color.scale(theme.$baseTextColor, $alpha: -85%);
 
     &.current {
-        background-color: v.$lightYellow;
+        background-color: theme.$lightYellow;
 
         &:hover {
-            background-color: lighten($color: v.$lightYellow, $amount: 2.5);
+            background-color: color.scale(theme.$lightYellow, $lightness: 25%);
         }
 
         &:active {
-            background-color: darken($color: v.$lightYellow, $amount: 5);
+            background-color: color.scale(theme.$lightYellow, $lightness: -25%);
         }
     }
 
     &:hover {
-        background-color: lighten($color: v.$lightBlue, $amount: 5);
+        background-color: color.scale(theme.$lightBlue, $lightness: 25%);
     }
 
     &:active {
-        background-color: darken($color: v.$lightBlue, $amount: 5);
+        background-color: color.scale(theme.$lightBlue, $lightness: -25%);
     }
 }
 
@@ -80,7 +81,7 @@
     $vsp: .4rem; // vertical space between nodes
     $ewd: 2px; // edge width
 
-    ul, li, div { 
+    ul, li { 
         margin: 0; 
         padding: 0;
         list-style: none;
@@ -95,15 +96,7 @@
     }
 
     .call {
-        width: $nwd;
-        height: $nht;
-        margin-left: $hsp;
-        margin-bottom: $vsp;
-        display: flex;
-        overflow: hidden;
-        align-items: center;
-        justify-content: center;
-        line-height: $nht;
+        margin: 0 0 $vsp $hsp;
     }
 
     .dead-end {
@@ -163,7 +156,7 @@
                     left: calc(#{-$nwd / 2} - 3px);
                     height: 100%; //$nht + 2 * $vsp;
                     top: -$vsp;
-                    background-color: black;
+                    background-color: theme.$baseTextColor;
                 }
             }
 
@@ -193,7 +186,7 @@
                     left: calc(#{-$nwd / 2} - 3px);
                     height: calc(100% - #{$nht * 2} - #{$vsp * 2});
                     top: calc(#{$nht} + 4px);
-                    background-color: black;
+                    background-color: theme.$baseTextColor;
                 }
             }
         }

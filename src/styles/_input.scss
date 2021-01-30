@@ -9,17 +9,19 @@ input[type=text]:disabled {
     cursor: not-allowed;
 }
 
-input, button, select {
+input:not([type=checkbox]), button, select {
     -webkit-appearance: none;
     -moz-appearance:    none;
     appearance:         none;
     box-sizing: border-box;
     padding: 0 v.$pad-h;
-    line-height: 2.5rem;
+    line-height: 2rem;
     white-space: nowrap;
     border: 2px solid color.scale(theme.$baseTextColor, $alpha: -85%);
     color: theme.$baseTextColor;
     background-color: theme.$baseBgColor;
+    box-shadow: 0 0 0 0 theme.$lightBlue;
+    transition: box-shadow .1s;
 
     &:focus {
         outline: none;
@@ -46,12 +48,12 @@ input[type=button] {
     }
 
     &:not(:disabled):active {
-        background-color: color.scale(theme.$baseTextColor, $alpha: -80%);
+        background-color: color.scale(theme.$baseTextColor, $alpha: -85%);
     }
 }
 
 select {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 48'><path d='M23.7 17.3c.9 1.5-.2 3.5-2 3.5H2.3c-1.8 0-2.9-1.9-2-3.5L10 1.1c.9-1.5 3-1.5 3.9 0 .1 0 9.8 16.2 9.8 16.2zM.3 30.7c-.9-1.5.2-3.5 2-3.5h19.4c1.8 0 2.9 1.9 2 3.5L14 46.9c-.9 1.5-3 1.5-3.9 0C10 46.9.3 30.7.3 30.7z'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 48'><path fill='#{theme.$baseTextColor}' d='M23.7 17.3c.9 1.5-.2 3.5-2 3.5H2.3c-1.8 0-2.9-1.9-2-3.5L10 1.1c.9-1.5 3-1.5 3.9 0 .1 0 9.8 16.2 9.8 16.2zM.3 30.7c-.9-1.5.2-3.5 2-3.5h19.4c1.8 0 2.9 1.9 2 3.5L14 46.9c-.9 1.5-3 1.5-3.9 0C10 46.9.3 30.7.3 30.7z'/></svg>");
     background-repeat: no-repeat;
     background-position: center right (v.$pad-h / 1.5);
     background-origin: padding-box;
@@ -69,7 +71,7 @@ label {
 
 // Set of grouped, but separate inputs
 .input-set {
-    input, button, select, .input-group {
+    input:not([type=checkbox]), button, select, .input-group {
         &:not(:last-child) {
             margin-right: v.$pad-h / 2;
         }
@@ -97,7 +99,7 @@ label {
         width: 100%
     }
 
-    input, button, select {
+    input:not([type=checkbox]), button, select {
         border-right-width: 0;
         flex-grow: 1;
         border-radius: 0;

@@ -17,6 +17,7 @@
             "elm-community/typed-svg": "6.0.0",
             "gampleman/elm-visualization": "2.1.2",
             "lattyware/elm-fontawesome": "5.0.0",
+            "norpan/elm-html5-drag-drop": "3.1.4",
             "zwilias/elm-rosetree": "1.5.0"
         },
         "indirect": {

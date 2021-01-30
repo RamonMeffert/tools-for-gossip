@@ -2,9 +2,13 @@
 @use 'sass:color';
 @use 'theme';
 
-@mixin box {
+@mixin border {
     border-radius: v.$border-radius;
-    padding: v.$pad-v v.$pad-h;
-    border: 2px solid color.scale(theme.$baseTextColor, $alpha: -90%);;
+    border: 2px solid color.scale(theme.$baseTextColor, $alpha: -85%);
     background-color: theme.$baseBgColor;
+}
+
+@mixin box {
+    @include border;
+    padding: v.$pad-v v.$pad-h;
 }

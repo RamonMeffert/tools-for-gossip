@@ -1,5 +1,7 @@
 module GossipGraph.Call exposing (..)
 
+import FontAwesome.Icon as Icon exposing (Icon)
+import FontAwesome.Solid as Icon
 import GossipGraph.Agent as Agent exposing (Agent, AgentId)
 import GossipGraph.Relation exposing (Kind(..), Relation)
 import Graph exposing (Graph, NodeContext)
@@ -66,23 +68,20 @@ includes call agent =
 -}
 render : List Agent -> Call -> Html msg
 render agents call =
-    case ( Agent.fromId agents call.from, Agent.fromId agents call.to ) of
-        ( Ok from, Ok to ) ->
-            div [ class "call" ] [ text (String.fromChar from.name ++ " 📞 " ++ String.fromChar to.name) ]
-
-        _ ->
-            div [ class "call" ]
-                [ text "❌" ]
+    div [ class "call" ] (renderString agents call)
 
 
-renderString : List Agent -> Call -> String
+renderString : List Agent -> Call -> List (Html msg)
 renderString agents call =
     case ( Agent.fromId agents call.from, Agent.fromId agents call.to ) of
         ( Ok from, Ok to ) ->
-            String.fromChar from.name ++ " 📞 " ++ String.fromChar to.name
+            [ text <| String.fromChar from.name ++ " "
+            , Icon.viewIcon Icon.phoneAlt
+            , text <| " " ++ String.fromChar to.name
+            ]
 
         _ ->
-            "❌"
+            [ text "❌" ]
 
 
 {-| Execute a call on a gossip graph
